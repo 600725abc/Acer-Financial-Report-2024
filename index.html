@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acer Inc. Consolidated Financial Report (ROC 113 & 112)</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3 {
+            color: #0056b3; /* Acer blue-ish */
+            border-bottom: 2px solid #dee2e6;
+            padding-bottom: 5px;
+            margin-top: 30px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+        th, td {
+            border: 1px solid #dee2e6;
+            padding: 10px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #e9ecef;
+            font-weight: 600;
+        }
+        td.numeric {
+            text-align: right;
+        }
+        .chart-container {
+            position: relative;
+            margin: 20px auto 40px auto;
+            padding: 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            background-color: #ffffff;
+            height: 400px; /* Default height */
+            max-width: 90%;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .summary-section p {
+            margin-bottom: 10px;
+        }
+         .summary-section strong {
+            color: #0056b3;
+        }
+        .report-info {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+            color: #6c757d;
+        }
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            .grid-container {
+                 grid-template-columns: 1fr; /* Stack charts on smaller screens */
+            }
+            .chart-container {
+                height: 350px;
+                 max-width: 100%;
+            }
+            th, td {
+                padding: 8px;
+                font-size: 0.9em;
+            }
+             h1 { font-size: 1.5em; }
+             h2 { font-size: 1.3em; }
+             h3 { font-size: 1.1em; }
+        }
+         @media (max-width: 480px) {
+             body { padding: 10px; }
+             .container { padding: 15px; }
+              th, td {
+                padding: 6px;
+                font-size: 0.8em;
+            }
+             .chart-container {
+                height: 300px;
+            }
+         }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Acer Inc. and Subsidiaries</h1>
+        <h2>Consolidated Financial Report Summary</h2>
+        <div class="report-info">
+            Stock Code: 2353 | Periods: ROC 113 (2024) & ROC 112 (2023) | Units: NT$ Thousands
+        </div>
+
+        <div class="summary-section">
+            <h3>Report Highlights</h3>
+            <p>This report summarizes the consolidated financial position and performance of Acer Inc. and its subsidiaries for the years ended December 31, ROC 113 and ROC 112.</p>
+            <p><strong>Key Audit Matters (ROC 113):</strong> The auditor's report highlighted Revenue Recognition, Inventory Valuation, and Goodwill Impairment Assessment as key areas of focus.</p>
+             <p><strong>Auditor's Opinion:</strong> The auditors expressed an unqualified opinion, stating that the financial statements present fairly, in all material respects, the consolidated financial position, financial performance, and cash flows in accordance with relevant accounting standards.</p>
+        </div>
+
+        <!-- Balance Sheet Section -->
+        <h2>Consolidated Balance Sheet Highlights</h2>
+        <div class="grid-container">
+            <div class="chart-container">
+                <canvas id="assetCompositionChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <canvas id="liabilityEquityChart"></canvas>
+            </div>
+            <div class="chart-container">
+                 <canvas id="keyBalanceSheetItemsChart"></canvas>
+            </div>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Balance Sheet Item</th>
+                    <th class="numeric">ROC 113.12.31</th>
+                    <th class="numeric">ROC 112.12.31</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Current Assets</td>
+                    <td class="numeric">156,697,998</td>
+                    <td class="numeric">157,566,038</td>
+                </tr>
+                <tr>
+                    <td>Non-Current Assets</td>
+                    <td class="numeric">62,777,531</td>
+                    <td class="numeric">51,167,808</td>
+                </tr>
+                <tr>
+                    <td><strong>Total Assets</strong></td>
+                    <td class="numeric"><strong>219,475,529</strong></td>
+                    <td class="numeric"><strong>208,733,846</strong></td>
+                </tr>
+                 <tr><td></td><td class="numeric"></td><td class="numeric"></td></tr>
+                <tr>
+                    <td>Current Liabilities</td>
+                    <td class="numeric">109,298,658</td>
+                    <td class="numeric">107,209,551</td>
+                </tr>
+                <tr>
+                    <td>Non-Current Liabilities</td>
+                    <td class="numeric">26,607,149</td>
+                    <td class="numeric">21,182,230</td>
+                </tr>
+                <tr>
+                    <td><strong>Total Liabilities</strong></td>
+                    <td class="numeric"><strong>135,905,807</strong></td>
+                    <td class="numeric"><strong>128,391,781</strong></td>
+                </tr>
+                 <tr><td></td><td class="numeric"></td><td class="numeric"></td></tr>
+                 <tr>
+                    <td>Equity Attributable to Parent</td>
+                    <td class="numeric">76,828,131</td>
+                    <td class="numeric">74,726,524</td>
+                </tr>
+                <tr>
+                    <td>Non-controlling Interests</td>
+                    <td class="numeric">6,741,591</td>
+                    <td class="numeric">5,615,541</td>
+                </tr>
+                 <tr>
+                    <td><strong>Total Equity</strong></td>
+                    <td class="numeric"><strong>83,569,722</strong></td>
+                    <td class="numeric"><strong>80,342,065</strong></td>
+                </tr>
+                 <tr>
+                    <td><strong>Total Liabilities & Equity</strong></td>
+                    <td class="numeric"><strong>219,475,529</strong></td>
+                    <td class="numeric"><strong>208,733,846</strong></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Income Statement Section -->
+        <h2>Consolidated Income Statement Highlights</h2>
+         <div class="grid-container">
+            <div class="chart-container">
+                <canvas id="incomeStatementChart"></canvas>
+            </div>
+             <div class="chart-container">
+                <canvas id="profitMarginsChart"></canvas>
+            </div>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Income Statement Item</th>
+                    <th class="numeric">ROC 113</th>
+                    <th class="numeric">ROC 112</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Operating Revenue</td>
+                    <td class="numeric">264,682,407</td>
+                    <td class="numeric">241,308,142</td>
+                </tr>
+                <tr>
+                    <td>Gross Profit</td>
+                    <td class="numeric">28,002,704</td>
+                    <td class="numeric">25,823,225</td>
+                </tr>
+                 <tr>
+                    <td><em>Gross Profit Margin</em></td>
+                    <td class="numeric"><em>10.58%</em></td>
+                    <td class="numeric"><em>10.70%</em></td>
+                </tr>
+                <tr>
+                    <td>Operating Expenses</td>
+                    <td class="numeric">(23,237,618)</td>
+                    <td class="numeric">(21,657,846)</td>
+                </tr>
+                 <tr>
+                    <td>Other Income & Expenses (Net)</td>
+                    <td class="numeric">110,736</td>
+                    <td class="numeric">60,032</td>
+                </tr>
+                <tr>
+                    <td>Operating Income</td>
+                    <td class="numeric">4,875,822</td>
+                    <td class="numeric">4,225,411</td>
+                </tr>
+                 <tr>
+                    <td>Non-Operating Income & Expenses (Net)</td>
+                    <td class="numeric">4,098,522</td>
+                    <td class="numeric">3,573,384</td>
+                </tr>
+                <tr>
+                    <td>Income Before Tax</td>
+                    <td class="numeric">8,974,344</td>
+                    <td class="numeric">7,798,795</td>
+                </tr>
+                <tr>
+                    <td>Income Tax Expense</td>
+                    <td class="numeric">(2,755,588)</td>
+                    <td class="numeric">(2,167,631)</td>
+                </tr>
+                <tr>
+                    <td><strong>Net Income</strong></td>
+                    <td class="numeric"><strong>6,218,756</strong></td>
+                    <td class="numeric"><strong>5,631,164</strong></td>
+                </tr>
+                 <tr>
+                    <td><em>Net Profit Margin</em></td>
+                    <td class="numeric"><em>2.35%</em></td>
+                    <td class="numeric"><em>2.33%</em></td>
+                </tr>
+                 <tr><td></td><td class="numeric"></td><td class="numeric"></td></tr>
+                 <tr>
+                    <td>Net Income Attributable to Parent</td>
+                    <td class="numeric">5,539,329</td>
+                    <td class="numeric">4,931,944</td>
+                </tr>
+                <tr>
+                    <td>Net Income Attributable to NCI</td>
+                    <td class="numeric">679,427</td>
+                    <td class="numeric">699,220</td>
+                </tr>
+                 <tr><td></td><td class="numeric"></td><td class="numeric"></td></tr>
+                  <tr>
+                    <td>Basic Earnings Per Share (NT$)</td>
+                    <td class="numeric">1.84</td>
+                    <td class="numeric">1.64</td>
+                </tr>
+                <tr>
+                    <td>Diluted Earnings Per Share (NT$)</td>
+                    <td class="numeric">1.84</td>
+                    <td class="numeric">1.64</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Cash Flow Section -->
+        <h2>Consolidated Cash Flow Highlights</h2>
+         <div class="grid-container">
+            <div class="chart-container">
+                <canvas id="cashFlowChart"></canvas>
+            </div>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Cash Flow Activity</th>
+                    <th class="numeric">ROC 113</th>
+                    <th class="numeric">ROC 112</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Net Cash Flow from Operating Activities</td>
+                    <td class="numeric">(1,522,817)</td>
+                    <td class="numeric">12,683,540</td>
+                </tr>
+                <tr>
+                    <td>Net Cash Flow from Investing Activities</td>
+                    <td class="numeric">(14,827,735)</td>
+                    <td class="numeric">(7,365,817)</td>
+                </tr>
+                <tr>
+                    <td>Net Cash Flow from Financing Activities</td>
+                    <td class="numeric">3,870,553</td>
+                    <td class="numeric">(4,440,211)</td>
+                </tr>
+                <tr>
+                    <td>Effect of Exchange Rate Changes</td>
+                    <td class="numeric">2,010,846</td>
+                    <td class="numeric">413,714</td>
+                </tr>
+                 <tr><td></td><td class="numeric"></td><td class="numeric"></td></tr>
+                <tr>
+                    <td><strong>Net Change in Cash & Equivalents</strong></td>
+                    <td class="numeric"><strong>(10,469,153)</strong></td>
+                    <td class="numeric"><strong>1,291,226</strong></td>
+                </tr>
+                <tr>
+                    <td>Beginning Cash & Equivalents</td>
+                    <td class="numeric">48,134,128</td>
+                    <td class="numeric">46,842,902</td>
+                </tr>
+                <tr>
+                    <td><strong>Ending Cash & Equivalents</strong></td>
+                    <td class="numeric"><strong>37,664,975</strong></td>
+                    <td class="numeric"><strong>48,134,128</strong></td>
+                </tr>
+            </tbody>
+        </table>
+
+         <!-- Shareholder Info (if applicable) -->
+         <h2>Major Shareholder Information (as of ROC 113 Q4)</h2>
+         <p>Based on page 92, shareholders holding 5% or more of the common stock (including non-physical registration delivery) as calculated by the Taiwan Depository & Clearing Corporation (TDCC) at the end of the quarter:</p>
+         <div class="grid-container">
+             <div class="chart-container" style="height: 300px;"> <!-- Adjust height for pie -->
+                <canvas id="shareholderChart"></canvas>
+            </div>
+         </div>
+          <table>
+            <thead>
+                <tr>
+                    <th>Major Shareholder Name</th>
+                    <th class="numeric">Shares Held</th>
+                    <th>Ownership Percentage</th>
+                </tr>
+            </thead>
+            <tbody>
+                 <tr>
+                    <td>Yuanta Taiwan High Dividend Fund Account</td>
+                    <td class="numeric">154,340,934</td>
+                    <td>5.06%</td>
+                </tr>
+                  <tr>
+                    <td>Other Shareholders (<5% each)</td>
+                    <td class="numeric">~2,893,512,900</td> <!-- Calculated: Total - Yuanta -->
+                    <td>~94.94%</td>
+                </tr>
+                  <tr>
+                    <td><strong>Total Outstanding Shares (Approx.)</strong></td>
+                    <td class="numeric"><strong>~3,047,853,834</strong></td> <!-- From page 66 -->
+                    <td><strong>100.00%</strong></td>
+                </tr>
+            </tbody>
+         </table>
+         <p><small>Note: Shareholder data source is TDCC as reported on page 92. Total outstanding shares approximated from page 66. Calculation of 'Other Shareholders' is an estimate based on these figures.</small></p>
+
+    </div>
+
+    <script>
+        const roc113 = 'ROC 113 (2024)';
+        const roc112 = 'ROC 112 (2023)';
+
+        // --- Balance Sheet Charts ---
+        const assetCtx = document.getElementById('assetCompositionChart').getContext('2d');
+        new Chart(assetCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Current Assets', 'Non-Current Assets'],
+                datasets: [{
+                    label: roc113,
+                    data: [156697998, 62777531],
+                    backgroundColor: ['#0d6efd', '#6c757d']
+                }, {
+                    label: roc112,
+                    data: [157566038, 51167808],
+                     backgroundColor: ['#198754', '#adb5bd'] // Different colors for comparison if needed, or keep same
+                }]
+            },
+            options: {
+                 responsive: true,
+                 maintainAspectRatio: false,
+                plugins: {
+                    title: { display: true, text: `Asset Composition (${roc113} Outer / ${roc112} Inner)` },
+                    tooltip: { callbacks: { label: function(context) { return `${context.dataset.label}: ${context.formattedValue} (NT$ Thou)`; } } }
+                }
+            }
+        });
+
+        const liabEqCtx = document.getElementById('liabilityEquityChart').getContext('2d');
+        new Chart(liabEqCtx, {
+            type: 'pie',
+            data: {
+                 labels: ['Current Liab.', 'Non-Current Liab.', 'Parent Equity', 'NCI'],
+                 datasets: [{
+                    label: roc113,
+                    data: [109298658, 26607149, 76828131, 6741591],
+                    backgroundColor: ['#dc3545', '#fd7e14', '#0d6efd', '#6f42c1']
+                },{
+                     label: roc112,
+                    data: [107209551, 21182230, 74726524, 5615541],
+                     backgroundColor: ['#ffc107', '#e83e8c', '#198754', '#adb5bd'] // Different colors for comparison if needed
+                }]
+            },
+             options: {
+                 responsive: true,
+                 maintainAspectRatio: false,
+                plugins: {
+                    title: { display: true, text: `Liability & Equity (${roc113} Outer / ${roc112} Inner)` },
+                     tooltip: { callbacks: { label: function(context) { return `${context.dataset.label}: ${context.formattedValue} (NT$ Thou)`; } } }
+                }
+            }
+        });
+
+        const keyItemsCtx = document.getElementById('keyBalanceSheetItemsChart').getContext('2d');
+        new Chart(keyItemsCtx, {
+            type: 'bar',
+            data: {
+                 labels: ['Total Assets', 'Total Liabilities', 'Total Equity', 'Cash & Equiv.', 'Inventory'],
+                 datasets: [{
+                    label: roc113,
+                    data: [219475529, 135905807, 83569722, 37664975, 46351268],
+                    backgroundColor: 'rgba(13, 110, 253, 0.7)', // Blue
+                    borderColor: 'rgba(13, 110, 253, 1)',
+                    borderWidth: 1
+                },{
+                     label: roc112,
+                    data: [208733846, 128391781, 80342065, 48134128, 43553072],
+                     backgroundColor: 'rgba(25, 135, 84, 0.7)', // Green
+                    borderColor: 'rgba(25, 135, 84, 1)',
+                     borderWidth: 1
+                }]
+            },
+             options: {
+                 responsive: true,
+                 maintainAspectRatio: false,
+                plugins: {
+                    title: { display: true, text: 'Key Balance Sheet Items Comparison (NT$ Thou)' },
+                    tooltip: { callbacks: { label: function(context) { return `${context.dataset.label}: ${context.formattedValue}`; } } }
+                },
+                 scales: { y: { beginAtZero: true, ticks: { callback: function(value) { return (value / 1000000) + 'M'; } } } } // Format Y axis
+            }
+        });
+
+
+        // --- Income Statement Charts ---
+         const incomeCtx = document.getElementById('incomeStatementChart').getContext('2d');
+         new Chart(incomeCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Revenue', 'Gross Profit', 'Operating Income', 'Net Income'],
+                 datasets: [{
+                    label: roc113,
+                    data: [264682407, 28002704, 4875822, 6218756],
+                    backgroundColor: 'rgba(13, 110, 253, 0.7)', // Blue
+                    borderColor: 'rgba(13, 110, 253, 1)',
+                     borderWidth: 1
+                 }, {
+                    label: roc112,
+                    data: [241308142, 25823225, 4225411, 5631164],
+                    backgroundColor: 'rgba(25, 135, 84, 0.7)', // Green
+                     borderColor: 'rgba(25, 135, 84, 1)',
+                     borderWidth: 1
+                 }]
+             },
+             options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: { display: true, text: 'Income Statement Comparison (NT$ Thou)' },
+                    tooltip: { callbacks: { label: function(context) { return `${context.dataset.label}: ${context.formattedValue}`; } } }
+                },
+                 scales: { y: { beginAtZero: true, ticks: { callback: function(value) { return (value / 1000000) + 'M'; } } } } // Format Y axis
+             }
+         });
+
+        const marginsCtx = document.getElementById('profitMarginsChart').getContext('2d');
+         new Chart(marginsCtx, {
+            type: 'line',
+            data: {
+                labels: [roc112, roc113],
+                 datasets: [{
+                    label: 'Gross Profit Margin (%)',
+                    data: [10.70, 10.58], // ROC 112, ROC 113
+                     borderColor: 'rgb(13, 110, 253)',
+                     backgroundColor: 'rgba(13, 110, 253, 0.5)',
+                     tension: 0.1
+                }, {
+                     label: 'Net Profit Margin (%)',
+                    data: [2.33, 2.35], // ROC 112, ROC 113
+                     borderColor: 'rgb(25, 135, 84)',
+                    backgroundColor: 'rgba(25, 135, 84, 0.5)',
+                     tension: 0.1
+                 }]
+             },
+             options: {
+                responsive: true,
+                 maintainAspectRatio: false,
+                 plugins: {
+                    title: { display: true, text: 'Profit Margins Trend' },
+                     tooltip: { callbacks: { label: function(context) { return `${context.dataset.label}: ${context.parsed.y}%`; } } }
+                },
+                 scales: { y: { beginAtZero: false, ticks: { callback: function(value) { return value + '%'; } } } }
+             }
+         });
+
+
+        // --- Cash Flow Chart ---
+        const cashFlowCtx = document.getElementById('cashFlowChart').getContext('2d');
+        new Chart(cashFlowCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Operating', 'Investing', 'Financing'],
+                datasets: [{
+                    label: roc113,
+                    data: [-1522817, -14827735, 3870553],
+                     backgroundColor: 'rgba(13, 110, 253, 0.7)', // Blue
+                     borderColor: 'rgba(13, 110, 253, 1)',
+                     borderWidth: 1
+                }, {
+                    label: roc112,
+                    data: [12683540, -7365817, -4440211],
+                     backgroundColor: 'rgba(25, 135, 84, 0.7)', // Green
+                     borderColor: 'rgba(25, 135, 84, 1)',
+                     borderWidth: 1
+                }]
+            },
+             options: {
+                 responsive: true,
+                 maintainAspectRatio: false,
+                plugins: {
+                    title: { display: true, text: 'Net Cash Flow by Activity (NT$ Thou)' },
+                    tooltip: { callbacks: { label: function(context) { return `${context.dataset.label}: ${context.formattedValue}`; } } }
+                },
+                scales: { y: { ticks: { callback: function(value) { return (value / 1000000) + 'M'; } } } } // Format Y axis
+            }
+        });
+
+        // --- Shareholder Chart ---
+         const shareholderCtx = document.getElementById('shareholderChart').getContext('2d');
+         // Approximation based on page 66 total shares and page 92 Yuanta shares
+         const totalSharesApprox = 3047853834;
+         const yuantaShares = 154340934;
+         const otherShares = totalSharesApprox - yuantaShares;
+
+         new Chart(shareholderCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Yuanta Taiwan High Dividend Fund', 'Other Shareholders (<5% each)'],
+                datasets: [{
+                    label: 'Share Ownership (%)',
+                    data: [yuantaShares, otherShares],
+                    backgroundColor: ['#0d6efd', '#adb5bd'],
+                     hoverOffset: 4
+                 }]
+             },
+             options: {
+                 responsive: true,
+                 maintainAspectRatio: false,
+                plugins: {
+                    title: { display: true, text: 'Major Shareholder Distribution (ROC 113 Q4)' },
+                     tooltip: { callbacks: { label: function(context) {
+                         let label = context.label || '';
+                         if (label) { label += ': '; }
+                         const value = context.parsed;
+                          const percentage = ((value / totalSharesApprox) * 100).toFixed(2);
+                         return `${label}${percentage}% (${value.toLocaleString()})`;
+                        } }
+                     }
+                 }
+             }
+         });
+
+    </script>
+</body>
+</html>
